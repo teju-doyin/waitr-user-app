@@ -1,0 +1,24 @@
+"use client"
+import React from 'react'
+import Image from "next/image"
+import { useMeals } from '@/context/MealsContext'
+import heroHeader from '@/public/hero-header.svg'
+import HeroHomepage from '@/components/HeroHomepage'
+import FooterHomepage from '@/components/FooterHomepage'
+import Meals from '@/components/Meals'
+
+
+const HomePage = () => {
+  const { meals } = useMeals()
+  // console.log(meals)
+  return (
+    <div className='relative h-screen w-full overflow-x-hidden'>
+      <HeroHomepage/>
+      <Meals/>
+      <FooterHomepage/>
+    </div>
+  )
+}
+
+export default HomePage
+//image, food title, food description of about 50 words,a badge showing whether it is swallow, rice, snack,breakfast, fastfood price, prep time, with each meal having its own review data list having names of those who gave the review and the number of stars given to the meal and the date of when the review was given
