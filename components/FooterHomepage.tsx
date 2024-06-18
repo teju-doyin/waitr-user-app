@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 
 const FooterHomepage = () => {
   return (
-    <section className='fixed bottom-0 w-full pt-5 pb-3 text-white bg-[#000000C4] flex justify-between items-center px-4 opacity-[54]'>
+    <section className='fixed bottom-0 pt-3 pb-1.5 text-white bg-[#000000C4] w-full '>
+      <div className="w-[90%] mx-auto flex justify-between items-center opacity-[54]">
         <div className=" flex items-center gap-9">
             <div className="relative ">
                 <Image src={cartIcon} alt='' width={30} />
@@ -13,7 +14,8 @@ const FooterHomepage = () => {
             </div>
             <span className='text-[24px]'>$0</span>
         </div>
-        <Button variant="secondary" className='bg-orange py-7 font-normal text-[17px] basis-[40%]  text-white'>Checkout</Button>
+        <Button variant="secondary" className='bg-orange py-6 font-normal text-[17px] basis-[40%]  text-white'>Checkout</Button>
+      </div>
     </section>
   )
 }

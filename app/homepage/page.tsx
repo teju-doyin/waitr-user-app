@@ -12,7 +12,7 @@ const HomePage = () => {
   const { meals } = useMeals()
   // console.log(meals)
   return (
-    <div className='relative h-screen w-full overflow-x-hidden'>
+    <div className='relative flex flex-col h-screen  w-full overflow-hidden bg-[#FAFAFA]'>
       <HeroHomepage/>
       <Meals/>
       <FooterHomepage/>

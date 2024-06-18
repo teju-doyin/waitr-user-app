@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 const HeroHomepage = () => {
   return (
-    <section className='hero-header w-full h-[20%]'>
+    <section className='hero-header fixed z-20 top-0 w-full h-[20%]'>
         {/* <Image src={heroHeader}  objectFit='cover' className='w-full inset-0 absolute -z-10' alt='' /> */}
         <div className="bg-[#0000008A] opacity-[54] w-full h-full flex justify-between pl-7 pr-4" >
           <Image src={backArrow} alt='' className=' cursor-pointer'/>

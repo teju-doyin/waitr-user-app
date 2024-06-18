@@ -16,6 +16,8 @@ interface Meal{
     image: string,
     badge: string,
     prep_time: string,
+    rating: number,
+    totalRatings: number,
     reviews: Review[]
 }
 interface MealsContextProps {
