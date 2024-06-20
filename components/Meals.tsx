@@ -6,32 +6,46 @@ import searchIcon from '@/public/search-icon.svg'
 import { Button } from "@/components/ui/button"
 import { useMeals } from '@/context/MealsContext'
 import MealList from './MealList'
+import MealModal from './MealModal'
+
 
 const Meals = () => {
     const [activeFilter, setActiveFilter] = useState<string>('All')
-    const { meals,totalAmount } = useMeals()
+    const { meals } = useMeals()
 
     const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
     const [searchQuery, setSearchQuery] = useState<string>('')
     const filterRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({})
     const filterLinks = ['All', 'Swallow', 'Rice', 'Snack', 'Fast Food', 'Breakfast', 'Brunch']
+    const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     useEffect(() => {
         if (filterRefs.current[activeFilter]) {
-            const filterElement = filterRefs.current[activeFilter];
+            const filterElement = filterRefs.current[activeFilter]
             setIndicatorStyle({
                 width: `${filterElement?.offsetWidth}px`,
                 left: `${filterElement?.offsetLeft}px`,
-            });
+            })
         }
-    }, [activeFilter]);
+    }, [activeFilter])
 
-    const handleFilterClick = (filter: string) => setActiveFilter(filter);
+    const handleFilterClick = (filter: string) => setActiveFilter(filter)
     const filteredMeals = meals.filter(meal => {
-        const matchesFilter = activeFilter === "All" || meal.badge === activeFilter;
-        const matchesSearch = meal.title.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesFilter && matchesSearch;
+        const matchesFilter = activeFilter === "All" || meal.badge === activeFilter
+        const matchesSearch = meal.title.toLowerCase().includes(searchQuery.toLowerCase())
+        return matchesFilter && matchesSearch
     })
+
+    const handleMealClick = (meal: Meal) => {
+        setSelectedMeal(meal)
+        setIsModalOpen(true)
+    }
+    
+    const handleCloseModal = () => {
+        setSelectedMeal(null)
+        setIsModalOpen(false)
+    }
 
     return (
         <>
@@ -39,7 +53,7 @@ const Meals = () => {
         <section className='relative w-[90%] mx-auto z-20 mt-4 '>
             <div className="fixed top-40 bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
                 <div className="">
-                    <h1 className='text-grayText text-[1.5rem] font-semibold mb-2'>Today's Menu</h1>
+                    <h1 className='text-grayText text-[1.5rem] font-semibold mb-2'>Today&apos;s Menu</h1>
                     <div className="relative mb-4">
                         <Image src={searchIcon} alt='' width={15} className='absolute top-3 left-2' />
                         <Input
@@ -64,6 +78,7 @@ const Meals = () => {
 
                         </Button>
                     ))}
+
                     <span className='fixed z-10 backdrop-blur-md bg-[#11111111] right-6 pl-3 pr-1 text-[#7B7B7B]'>{activeFilter}</span>
                     <span
                         className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
@@ -74,8 +89,9 @@ const Meals = () => {
             
         </section>
         <div className="flex- mt-[310px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
-            <MealList meals={filteredMeals} />
+            <MealList meals={filteredMeals} mealClick={handleMealClick} />
         </div>
+        <MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>
         </>
     )
 }

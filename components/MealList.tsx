@@ -9,6 +9,7 @@ import {useMeals, Meal} from '@/context/MealsContext'
 
 interface FilteredMealsListProps {
     meals: Meal[];
+    mealClick: (meal:Meal) => void
 }
 const renderStars = (ratings: number=2) => {
     const stars = [];
@@ -25,30 +26,30 @@ const renderStars = (ratings: number=2) => {
     }
     return stars;
 }
-const MealList: React.FC<FilteredMealsListProps> = ({meals}) => {
+const MealList: React.FC<FilteredMealsListProps> = ({meals,mealClick}) => {
   return (
-    <section className='mb-[5rem]'>
+    <ul className='mb-[5rem]'>
         {
             meals.map((meal) => {
-                return <MealItem key={meal.id} meal={meal} />
+                return <MealItem key={meal.id} meal={meal} mealClick={mealClick} />
             })
         }
         
-    </section>
+    </ul>
 
   )
 }
-const MealItem=({meal})=>{
+const MealItem=({meal,mealClick})=>{
     const { orderQuantity, increaseQuantity, decreaseQuantity } = useMeals()
 
     return(
-        <ul className='bg-white  w-full' >
+        <li className='bg-white  w-full' >
 
-            <li  className=" w-[93%] mx-auto flex gap-4 cursor-default justify-between items-center mb-1 py-2">
-                <Image src={foodImage} className='h-full basis-[40%]' alt=''/>
-                <div className="flex justify-between basis-[80%] gap-4 py-0.5">
+            <div  className=" w-[93%] mx-auto flex gap-4 cursor-default justify-between items-center mb-1 py-2">
+                <Image src={foodImage} className='h-full basis-[30%]' alt=''/>
+                <div className="flex justify-between basis-[70%] gap-4 py-0.5">
                     <div className="flex flex-col justify-between">
-                        <h1 className='text-grayText text-[1.1rem] font-semibold'>{meal.title}</h1>
+                        <h1 className='text-grayText text-[1.1rem] font-semibold' onClick={()=>mealClick(meal)}>{meal.title}</h1>
                         <p>{truncateDescription(meal.description,8) }</p>
                         <div className="flex  items-center gap-2">
                             <Image src={timer} alt=''/>
@@ -73,8 +74,8 @@ const MealItem=({meal})=>{
 
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </li>
         
     )
 }
