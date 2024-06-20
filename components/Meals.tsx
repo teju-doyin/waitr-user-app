@@ -9,7 +9,7 @@ import MealList from './MealList'
 
 const Meals = () => {
     const [activeFilter, setActiveFilter] = useState<string>('All')
-    const { meals } = useMeals()
+    const { meals,totalAmount } = useMeals()
 
     const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
     const [searchQuery, setSearchQuery] = useState<string>('')
