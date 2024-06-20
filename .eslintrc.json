@@ -27,7 +27,8 @@
     "import"
   ],
   "rules": {
-    "react/no-unescaped-entities": "error"
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   },
   "settings": {
     "react": {
