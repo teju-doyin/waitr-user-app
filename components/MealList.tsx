@@ -43,7 +43,7 @@ interface MealItemProps {
     meal: Meal;
     mealClick: (meal: Meal) => void;
   }
-const MealItem: React.FC<MealItemProps>=({meal})=>{
+const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
     const { orderQuantity, increaseQuantity, decreaseQuantity } = useMeals()
 
     return(
@@ -54,7 +54,12 @@ const MealItem: React.FC<MealItemProps>=({meal})=>{
                 <div className="flex justify-between basis-[70%] gap-4 py-0.5">
                     <div className="flex flex-col justify-between">
                         <h1 className='text-grayText text-[1.1rem] font-semibold' 
-                           
+                            onClick={()=>mealClick(meal)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') mealClick(meal);
+                            }}
                         >{meal.title}</h1>
                         <p>{truncateDescription(meal.description,8) }</p>
                         <div className="flex  items-center gap-2">
