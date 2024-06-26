@@ -5,7 +5,7 @@ import mealsData from '@/data/meals.json'
 export interface Review{
   name: string,
   notes: string
-  rating: number,
+  stars: number,
   date: string
 }
 export interface Meal{

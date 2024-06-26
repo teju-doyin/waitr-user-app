@@ -61,7 +61,7 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
           <Image src={foodImage} alt={meal.title} />
           <p>{meal.description}</p>
           <p>{meal.totalRatings}</p>
-          <p>{renderStars(meal.ratings)}</p>
+          <p>{renderStars(meal.rating)}</p>
           <div className="mt-4">
             <h3 className="text-lg font-semibold" onClick={seeReview}>{reviewText}</h3>
             {isReviewVisible &&( <ul>
