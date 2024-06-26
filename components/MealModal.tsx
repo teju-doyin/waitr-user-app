@@ -39,7 +39,8 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
     if (!isOpen || !meal) return null;
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" role="dialog" aria-modal="true"
+      aria-labelledby="meal-title">
         <div className="bg-white p-4 rounded-md max-w-md w-full">
             <div className=" flex flex-col justify-between items-center">
               <p className='text-grayText text-[.9rem] font-semibold'>${meal.price}</p>
@@ -63,7 +64,9 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
           <p>{meal.totalRatings}</p>
           <p>{renderStars(meal.ratings)}</p>
           <div className="mt-4">
-            <h3 className="text-lg font-semibold" onClick={seeReview}>{reviewText}</h3>
+            <h3 className="text-lg font-semibold" 
+                onClick={seeReview}
+                >{reviewText}</h3>
             {isReviewVisible &&( <ul>
               {meal.reviews.map((review: Review, index: number) => (
                 <li key={index}>
