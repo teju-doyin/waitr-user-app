@@ -45,12 +45,16 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
             <div className=" flex flex-col justify-between items-center">
               <p className='text-grayText text-[.9rem] font-semibold'>${meal.price}</p>
               <button 
-                onClick={() => increaseQuantity(meal.id)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  increaseQuantity(meal.id)}}
                 className='cursor-pointer text-[20px] bg-orange text-center text-white px-2.5 py-0.5 rounded-full'
               >+</button>
               <p className='text-grayText text-[.9rem] font-semibold'>{orderQuantity[meal.id] || 0}</p>
               <button 
-                onClick={() => decreaseQuantity(meal.id)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  decreaseQuantity(meal.id)}}
                 className='cursor-pointer text-[20px] bg-white text-orange border border-orange px-3 py-[2px] rounded-full'
               >-</button>
 

@@ -43,7 +43,7 @@ interface MealItemProps {
     meal: Meal;
     mealClick: (meal: Meal) => void;
   }
-const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
+const MealItem: React.FC<MealItemProps>=({meal})=>{
     const { orderQuantity, increaseQuantity, decreaseQuantity } = useMeals()
 
     return(
