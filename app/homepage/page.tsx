@@ -1,16 +1,11 @@
 "use client"
 import React from 'react'
-import Image from "next/image"
-import { useMeals } from '@/context/MealsContext'
-import heroHeader from '@/public/hero-header.svg'
 import HeroHomepage from '@/components/HeroHomepage'
 import FooterHomepage from '@/components/FooterHomepage'
 import Meals from '@/components/Meals'
 
 
 const HomePage = () => {
-  const { meals } = useMeals()
-  // console.log(meals)
   return (
     <div className='relative flex flex-col h-screen  w-full overflow-hidden bg-[#FAFAFA]'>
       <HeroHomepage/>

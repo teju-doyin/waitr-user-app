@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { useMeals } from '@/context/MealsContext'
 import MealList from './MealList'
 import MealModal from './MealModal'
-
+import skip from '@/public/skip-icon.svg'
 
 const Meals = () => {
     const [activeFilter, setActiveFilter] = useState<string>('All')
@@ -79,7 +79,7 @@ const Meals = () => {
                         </Button>
                     ))}
 
-                    <span className='fixed z-10 backdrop-blur-md bg-[#11111111] right-6 pl-3 pr-1 text-[#7B7B7B]'>{activeFilter}</span>
+                    <Image src={skip} alt='' height={25} className='fixed z-10   right-6 '/>
                     <span
                         className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
                         style={indicatorStyle}

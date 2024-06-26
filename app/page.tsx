@@ -1,7 +1,4 @@
 'use client'
-import { toast } from "sonner"
-import { Toaster } from "@/components/ui/sonner"
-import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import logo from '@/public/logo.svg'
 import {motion, AnimatePresence} from 'framer-motion'
