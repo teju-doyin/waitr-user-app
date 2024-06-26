@@ -8,7 +8,7 @@ interface MealModalProps{
   onClose:()=>void
   isOpen:boolean
   meal:Meal
-  reviews:Review
+  // reviews:Review
 }
 const renderStars = (ratings: number=2) => {
   const stars = [];

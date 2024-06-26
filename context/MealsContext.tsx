@@ -16,7 +16,7 @@ export interface Meal{
   image: string,
   badge: string,
   prep_time: string,
-  rating: number,
+  ratings: number,
   totalRatings: number,
   reviews: Review[]
 }

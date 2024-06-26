@@ -11,7 +11,7 @@ interface FilteredMealsListProps {
     meals: Meal[];
     mealClick: (meal:Meal) => void
 }
-const renderStars = (ratings: number=2) => {
+const renderStars = (ratings: number=5) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
@@ -60,7 +60,7 @@ const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
                             <span>{meal.prep_time}</span>
                         </div>
                         <div className="flex gap-2">
-                            <p className='flex'>{renderStars(meal.rating)}</p>
+                            <p className='flex'>{renderStars(meal.ratings)}</p>
                             <p>({meal.totalRatings})</p>
                         </div>
                     </div>

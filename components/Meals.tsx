@@ -91,7 +91,7 @@ const Meals = () => {
         <div className="flex- mt-[310px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
             <MealList meals={filteredMeals} mealClick={handleMealClick} />
         </div>
-        <MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>
+        {selectedMeal&&<MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>}
         </>
     )
 }
