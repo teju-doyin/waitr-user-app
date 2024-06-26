@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Input } from "@/components/ui/input"
 import searchIcon from '@/public/search-icon.svg'
 import { Button } from "@/components/ui/button"
-import { useMeals } from '@/context/MealsContext'
+import { useMeals,Meal } from '@/context/MealsContext'
 import MealList from './MealList'
 import MealModal from './MealModal'
 import skip from '@/public/skip-icon.svg'

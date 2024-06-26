@@ -2,15 +2,15 @@
 import React, { createContext, useContext, useState, useEffect,useMemo, ReactNode } from 'react'
 import mealsData from '@/data/meals.json'
 // console.log(mealsData)
-interface Review{
+export interface Review{
   name: string,
   notes: string
   rating: number,
   date: string
 }
-interface Meal{
+export interface Meal{
   id: number,
-  name: string,
+  title: string,
   description: string,
   price: number,
   image: string,

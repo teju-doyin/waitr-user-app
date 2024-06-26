@@ -1,29 +1,29 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import foodImage from '@/public/food.svg'
-import { useMeals } from '@/context/MealsContext'
+import { useMeals, Meal, Review } from '@/context/MealsContext'
 import starFilled from '@/public/yellow-star-filled.svg'
 import starEmpty from '@/public/yellow-star-empty.svg'
 interface MealModalProps{
-    onClose:()=>void
-    isOpen:boolean
-    meal:Meal[]
-    reviews:Reviews[]
+  onClose:()=>void
+  isOpen:boolean
+  meal:Meal
+  reviews:Review
 }
 const renderStars = (ratings: number=2) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <Image
-          key={i}
-          src={i <= ratings ? starFilled:starEmpty}
-          alt='rating'
-          width={16}
-          height={16}
-        />
-      );
-    }
-    return stars;
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <Image
+        key={i}
+        src={i <= ratings ? starFilled:starEmpty}
+        alt='rating'
+        width={16}
+        height={16}
+      />
+    );
+  }
+  return stars;
 }
 
 
@@ -33,8 +33,8 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
     const[reviewText, setReviewText] =useState<string>('see review')
     
     const seeReview=()=> {
-        setIsReviewVisible(!isReviewVisible)
-        reviewText ==='see review'? setReviewText('hide review'):setReviewText('see review')
+      setIsReviewVisible(!isReviewVisible)
+      reviewText ==='see review'? setReviewText('hide review'):setReviewText('see review')
     }
     if (!isOpen || !meal) return null;
 
@@ -42,16 +42,16 @@ const MealModal:React.FC<MealModalProps> = ({meal,isOpen,onClose}) => {
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="bg-white p-4 rounded-md max-w-md w-full">
             <div className=" flex flex-col justify-between items-center">
-                <p className='text-grayText text-[.9rem] font-semibold'>${meal.price}</p>
-                <button 
-                    onClick={() => increaseQuantity(meal.id)}
-                    className='cursor-pointer text-[20px] bg-orange text-center text-white px-2.5 py-0.5 rounded-full'
-                >+</button>
-                <p className='text-grayText text-[.9rem] font-semibold'>{orderQuantity[meal.id] || 0}</p>
-                <button 
-                    onClick={() => decreaseQuantity(meal.id)}
-                    className='cursor-pointer text-[20px] bg-white text-orange border border-orange px-3 py-[2px] rounded-full'
-                >-</button>
+              <p className='text-grayText text-[.9rem] font-semibold'>${meal.price}</p>
+              <button 
+                onClick={() => increaseQuantity(meal.id)}
+                className='cursor-pointer text-[20px] bg-orange text-center text-white px-2.5 py-0.5 rounded-full'
+              >+</button>
+              <p className='text-grayText text-[.9rem] font-semibold'>{orderQuantity[meal.id] || 0}</p>
+              <button 
+                onClick={() => decreaseQuantity(meal.id)}
+                className='cursor-pointer text-[20px] bg-white text-orange border border-orange px-3 py-[2px] rounded-full'
+              >-</button>
 
             </div>
           <button onClick={onClose} className="absolute bg-red top-2 right-2">

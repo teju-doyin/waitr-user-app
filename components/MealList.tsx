@@ -39,7 +39,11 @@ const MealList: React.FC<FilteredMealsListProps> = ({meals,mealClick}) => {
 
   )
 }
-const MealItem=({meal,mealClick})=>{
+interface MealItemProps {
+    meal: Meal;
+    mealClick: (meal: Meal) => void;
+  }
+const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
     const { orderQuantity, increaseQuantity, decreaseQuantity } = useMeals()
 
     return(
@@ -56,7 +60,7 @@ const MealItem=({meal,mealClick})=>{
                             <span>{meal.prep_time}</span>
                         </div>
                         <div className="flex gap-2">
-                            <p className='flex'>{renderStars(meal.ratings)}</p>
+                            <p className='flex'>{renderStars(meal.rating)}</p>
                             <p>({meal.totalRatings})</p>
                         </div>
                     </div>
