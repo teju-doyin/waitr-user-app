@@ -73,7 +73,7 @@ const Meals = () => {
                             variant='ghost'
                             className={`${activeFilter === filter ? 'bg-black  text-white' : 'text-[#8E8E8E80] '}`}
                             onClick={() => handleFilterClick(filter)}
-                            ref={(el) => (filterRefs.current[filter] = el)}
+                            ref={(el) => {filterRefs.current[filter] = el}}
                         >
                             {filter}
                         </Button>

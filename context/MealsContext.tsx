@@ -4,8 +4,8 @@ import mealsData from '@/data/meals.json'
 // console.log(mealsData)
 export interface Review{
   name: string,
-  notes: string
   stars: number,
+  notes: string,
   date: string
 }
 export interface Meal{
@@ -25,7 +25,6 @@ interface MealsContextProps {
   orderQuantity: { [key: number]: number };
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
-  cartQuantity: () => void;
   cartItemCount: number;
   getTotalPrice: () => number;
 }
