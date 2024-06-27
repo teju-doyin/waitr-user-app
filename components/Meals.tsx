@@ -51,9 +51,9 @@ const Meals = () => {
         <>
        
         <section className='relative w-[90%] mx-auto z-20 mt-4 '>
-            <div className="fixed top-40 bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
+            <div className="fixed top-32 bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
                 <div className="">
-                    <h1 className='text-grayText text-[1.5rem] font-semibold mb-2'>Today&apos;s Menu</h1>
+                    <h1 className='text-grayText text-[1.3rem] font-semibold mb-2'>Today&apos;s Menu</h1>
                     <div className="relative mb-4">
                         <Image src={searchIcon} alt='' width={15} className='absolute top-3 left-2' />
                         <Input
@@ -61,7 +61,7 @@ const Meals = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search for Menu"
-                            className='outline-none border placeholder:text-lightGray border-lightGray pl-12'
+                            className='outline-none border  placeholder:text-[#8E8E8E73] text-[14px] border-lightGray pl-12'
                         />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ const Meals = () => {
             </div>
             
         </section>
-        <div className="flex- mt-[310px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
+        <div className="flex- mt-[270px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
             <MealList meals={filteredMeals} mealClick={handleMealClick} />
         </div>
         {selectedMeal&&<MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>}

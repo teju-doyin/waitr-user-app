@@ -19,8 +19,8 @@ const renderStars = (ratings: number=5) => {
           key={i}
           src={i <= ratings ? starFilled:starEmpty}
           alt='rating'
-          width={16}
-          height={16}
+          width={14}
+          height={14}
         />
       );
     }
@@ -49,42 +49,46 @@ const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
     return(
         <li className='bg-white  w-full' >
 
-            <div  className=" w-[93%] mx-auto flex gap-4 cursor-default justify-between items-center mb-1 py-2">
+            <div  className=" w-[93%] mx-auto flex gap-4 cursor-default justify-between items-center mb-1 py-1">
                 <Image src={foodImage} className='h-full basis-[30%]' alt=''/>
-                <div className="flex justify-between basis-[70%] gap-4 py-0.5">
-                    <div className="flex flex-col justify-between">
-                        <h1 className='text-grayText text-[1.1rem] font-semibold' 
-                            onClick={()=>mealClick(meal)}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') mealClick(meal);
-                            }}
-                        >{meal.title}</h1>
-                        <p>{truncateDescription(meal.description,8) }</p>
-                        <div className="flex  items-center gap-2">
-                            <Image src={timer} alt=''/>
-                            <span>{meal.prep_time}</span>
+                <div className="flex justify-between basis-[70%] gap-4 py-0.5 ">
+                    <div className="flex flex-col justify-around gap-1.5 min-h-[3rem] my-auto">
+                        <div className="">
+                            <h1 className='text-grayText text-[1rem] max-w-[190px] cursor-pointer font-semibold'
+                                onClick={()=>mealClick(meal)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') mealClick(meal);
+                                }}
+                            >{meal.title}</h1>
+                            <p className='text-[.72rem] text-lightGray max-w-[190px]'>{truncateDescription(meal.description,8) }</p>
                         </div>
-                        <div className="flex gap-2">
-                            <p className='flex'>{renderStars(meal.ratings)}</p>
-                            <p>({meal.totalRatings})</p>
+                        <div className="">
+                            <div className="flex  items-center gap-2">
+                                <Image src={timer} alt=''/>
+                                <span className='text-grayText font-semibold text-[.8rem]'>{meal.prep_time}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <p className='flex gap-1'>{renderStars(meal.ratings)}</p>
+                                <p className='text-[.72rem] text-[#9E9E9E]'>({meal.totalRatings})</p>
+                            </div>
                         </div>
                     </div>
-                    <div className=" flex flex-col justify-between items-center">
-                        <p className='text-grayText text-[.9rem] font-semibold'>${meal.price}</p>
+                    <div className=" flex flex-col gap-1 justify-between items-center">
+                        <p className='text-grayText text-[.9rem] font-bold'>${meal.price}</p>
                         <button 
                             onClick={(e) => {
                                 e.stopPropagation()
                                 increaseQuantity(meal.id)}}
-                            className='cursor-pointer text-[20px] bg-orange text-center text-white px-2.5 py-0.5 rounded-full'
+                            className='cursor-pointer text-[20px] bg-orange text-center text-white px-2 rounded-full'
                         >+</button>
-                        <p className='text-grayText text-[.9rem] font-semibold'>{orderQuantity[meal.id] || 0}</p>
+                        <p className='text-grayText text-[.9rem] font-bold'>{orderQuantity[meal.id] || 0}</p>
                         <button 
                             onClick={(e) => {
                                 e.stopPropagation()
                                 decreaseQuantity(meal.id)}}
-                            className='cursor-pointer text-[20px] bg-white text-orange border border-orange px-3 py-[2px] rounded-full'
+                            className='cursor-pointer text-[20px] bg-white text-orange border border-orange px-2.5 py-0 rounded-full'
                         >-</button>
 
                     </div>
