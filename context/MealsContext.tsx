@@ -3,10 +3,10 @@ import React, { createContext, useContext, useState, useEffect,useMemo, ReactNod
 import mealsData from '@/data/meals.json'
 // console.log(mealsData)
 export interface Review{
-  name: string,
-  stars: number,
-  notes: string,
-  date: string
+  name: string;
+  stars: number;
+  notes: string;
+  date: string;
 }
 export interface Meal{
   id: number,
