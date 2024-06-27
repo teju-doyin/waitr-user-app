@@ -42,7 +42,7 @@ const MealList: React.FC<FilteredMealsListProps> = ({meals,mealClick}) => {
 interface MealItemProps {
     meal: Meal;
     mealClick: (meal: Meal) => void;
-  }
+}
 const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
     const { orderQuantity, increaseQuantity, decreaseQuantity } = useMeals()
 
