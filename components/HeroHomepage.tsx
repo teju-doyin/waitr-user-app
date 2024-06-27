@@ -9,7 +9,7 @@ const HeroHomepage = () => {
         {/* <Image src={heroHeader}  objectFit='cover' className='w-full inset-0 absolute -z-10' alt='' /> */}
         <div className="bg-[#0000008A] opacity-[54] w-full h-full flex justify-between  pl-7 pr-4" >
           <Image src={backArrow} alt='' className=' cursor-pointer'/>
-          <div className=" basis-[75%]   flex justify-between gap-1 items-end pt-5 pb-5">
+          <div className=" basis-[75%]   flex justify-between gap-1 items-end pt-5 pb-3">
             <div className="flex flex-col items-center">
               <Image className="" width={80} src={logo} alt='logo'/>
               <p className="font-medium leading-5 text-[14px] text-white">Chicken Republic</p>

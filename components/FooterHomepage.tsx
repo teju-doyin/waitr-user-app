@@ -11,7 +11,7 @@ const FooterHomepage = () => {
         <div className=" flex items-center gap-9">
             <div className="relative ">
                 <Image src={cartIcon} alt='' width={27} />
-                <span className='absolute -top-2 -right-3 bg-red rounded-full px-1.5 pr-2  text-[.9rem]'>{cartItemCount}</span>
+                <span className='absolute -top-2 -right-3 bg-red rounded-full pl-1.5 pr-2 text-[.9rem]'>{cartItemCount}</span>
             </div>
             <span className='text-[20px]'>${getTotalPrice().toLocaleString()}</span>
         </div>
