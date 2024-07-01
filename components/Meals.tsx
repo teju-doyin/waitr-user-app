@@ -16,9 +16,10 @@ const Meals = () => {
     const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
     const [searchQuery, setSearchQuery] = useState<string>('')
     const filterRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({})
-    const filterLinks = ['All', 'Swallow', 'Rice', 'Snack', 'Fast Food', 'Breakfast', 'Brunch']
+    const filterLinks = [ 'Swallow', 'Rice', 'Snack', 'Fast Food', 'Breakfast', 'Brunch']
     const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    // const [showSpanUnderline, setShowSpanUnderline] = useState<boolean>(false)
 
     useEffect(() => {
         if (filterRefs.current[activeFilter]) {
@@ -48,7 +49,7 @@ const Meals = () => {
     }
 
     return (
-        <>
+        <div className='relative'>
        
         <section className='relative w-[90%] mx-auto z-20 mt-4 '>
             <div className="fixed top-32 bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
@@ -67,32 +68,53 @@ const Meals = () => {
                 </div>
                 {/* badges */}
                 <div className="relative mx-2 flex gap-1 h-[3.5rem]  overflow-x-auto overflow-y-hidden no-scrollbar">
-                    {filterLinks.map((filter) => (
+                    <div className="">
                         <Button
-                            key={filter}
+                            key="All"
                             variant='ghost'
-                            className={`${activeFilter === filter ? 'bg-black  text-white' : 'text-[#8E8E8E80] '}`}
-                            onClick={() => handleFilterClick(filter)}
-                            ref={(el) => {filterRefs.current[filter] = el}}
+                            className='fixed mb-5  bg-black  text-white'
+                            onClick={() => handleFilterClick("All")}
+                            ref={(el) => {filterRefs.current['All'] = el}}
                         >
-                            {filter}
+                            All
                         </Button>
-                    ))}
-
+                        {/* <span
+                        className="absolute bottom-0 w-12 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
+                        
+                        /> */}
+                    </div>
+                    <div className="ml-14 flex">
+                        {filterLinks.map((filter) => (
+                            <>
+                        
+                            <Button
+                                key={filter}
+                                variant='ghost'
+                                className={`${activeFilter === filter ? 'bg-black  text-white' : 'text-[#8E8E8E80] '}`}
+                                onClick={() => handleFilterClick(filter)}
+                                ref={(el) => {filterRefs.current[filter] = el}}
+                            >
+                                {filter}
+                            </Button>
+                        
+                            </>
+                        ))}
+                        <span
+                            className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
+                            style={indicatorStyle}
+                        />
+                    </div>
                     <Image src={skip} alt='' height={25} className='fixed z-10   right-6 '/>
-                    <span
-                        className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
-                        style={indicatorStyle}
-                    />
+                    
                 </div>
             </div>
             
         </section>
-        <div className="flex- mt-[270px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
+        <div className="flex- mt-[290px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
             <MealList meals={filteredMeals} mealClick={handleMealClick} />
         </div>
         {selectedMeal&&<MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>}
-        </>
+    </div>
     )
 }
 
