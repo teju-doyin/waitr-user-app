@@ -11,6 +11,8 @@ export interface HistoryItem {
     category: string,
     time_left: number,
     splits:number,
+    description: string,
+    date: string,
     memo: string
 }
 

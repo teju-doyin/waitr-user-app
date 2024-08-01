@@ -1,24 +1,29 @@
 [
     {
       "id": 1,
-      "title": "Meat Pie",
-      "price": 25,
+      "title": "Guac",
+      "price": 125,
       "quantity": 4,
       "status": "in-progress",
       "time_left": 30,
       "splits":3,
       "category":"Recent",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
       "memo": "Please reduce the pepper in my food. I don’t want Onions too"
+
     },
     {
       "id": 2,
-      "title": "Potato Chips",
-      "price": 25,
+      "title": "Porridge",
+      "price": 100,
       "quantity": 4,
       "status": "ready",
       "time_left": 0,
       "splits":2,
       "category":"Completed",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
       "memo": ""
     },
     {
@@ -30,28 +35,34 @@
       "time_left": 0,
       "splits":3,
       "category":"Recent",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
       "memo": "Please reduce the pepper in my food. I don’t want Onions too"
     },
     {
       "id": 4,
-      "title": "Meat Pie",
+      "title": "Apple Pie",
       "price": 25,
       "quantity": 4,
       "status": "in-progress",
       "time_left": 30,
       "splits":3,
       "category":"Cancelled",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
       "memo": ""
     },
     {
       "id": 5,
-      "title": "Meat Pie",
+      "title": "Chicken Pie",
       "price": 25,
       "quantity": 4,
       "status": "in-progress",
       "time_left": 20,
       "splits":1,
       "category":"Cancelled",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
       "memo": "Please reduce the pepper in my food. I don’t want Onions too"
     }
 ]
