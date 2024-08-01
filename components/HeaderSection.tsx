@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { ReactNode } from 'react';
 
-const HeaderSection = ({children}) => {
-  return (
-    <section className=' fixed z-20 top-0 w-full h-[15%]'> 
-      {children}
-    </section>
-  )
+interface HeaderSectionProps {
+  children: ReactNode;
 }
 
-export default HeaderSection
+const HeaderSection: React.FC<HeaderSectionProps> = ({ children }) => {
+  return (
+    <section className='fixed z-20 top-0 w-full h-[15%]'>
+      {children}
+    </section>
+  );
+};
+
+export default HeaderSection;

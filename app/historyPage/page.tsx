@@ -66,7 +66,7 @@ const Page = () => {
               <div className="">
                 <div className="">
                   <Image src={food} alt=''/>
-                  <span>
+                  <span  className='text-grayText font-semibold'>
                     <p>{item.title}</p>
                     <p><span>Quantity:</span> {item.quantity} pcs</p>
                   </span>
