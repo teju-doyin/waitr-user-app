@@ -16,10 +16,12 @@ const Meals = () => {
     const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
     const [searchQuery, setSearchQuery] = useState<string>('')
     const filterRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({})
-    const filterLinks = [ 'Swallow', 'Rice', 'Snack', 'Fast Food', 'Breakfast', 'Brunch']
+    const filterLinks = ['All','Swallow', 'Rice', 'Snack', 'Fast Food', 'Breakfast', 'Brunch']
     const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-    // const [showSpanUnderline, setShowSpanUnderline] = useState<boolean>(false)
+    const [showFastForwardIcon, setShowFastForwardIcon] = useState<boolean>(true)
+    const filterContainerRef = useRef<HTMLDivElement>(null)
+
 
     useEffect(() => {
         if (filterRefs.current[activeFilter]) {
@@ -47,6 +49,12 @@ const Meals = () => {
         setSelectedMeal(null)
         setIsModalOpen(false)
     }
+    const handleScroll = () => {
+        if (filterContainerRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = filterContainerRef.current
+            setShowFastForwardIcon(scrollLeft + clientWidth < scrollWidth)
+        }
+    }
 
     return (
         <div className='relative'>
@@ -67,26 +75,14 @@ const Meals = () => {
                     </div>
                 </div>
                 {/* badges */}
-                <div className="relative mx-2 flex gap-1 h-[3.5rem]  overflow-x-auto overflow-y-hidden no-scrollbar">
-                    <div className="">
-                        <Button
-                            key="All"
-                            variant='ghost'
-                            className='fixed mb-5  bg-black  text-white'
-                            onClick={() => handleFilterClick("All")}
-                            ref={(el) => {filterRefs.current['All'] = el}}
-                        >
-                            All
-                        </Button>
-                        {/* <span
-                        className="absolute bottom-0 w-12 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
-                        
-                        /> */}
-                    </div>
-                    <div className="ml-14 flex">
+                <div className="relative mx-2 flex gap-1 h-[3.5rem] items-center overflow-x-auto overflow-y-hidden no-scrollbar">
+                   
+                    <div 
+                        className="flex gap-1 overflow-x-auto overflow-y-hidden no-scrollbar"
+                        ref={filterContainerRef}
+                        onScroll={handleScroll}
+                    >
                         {filterLinks.map((filter) => (
-                            <>
-                        
                             <Button
                                 key={filter}
                                 variant='ghost'
@@ -96,17 +92,17 @@ const Meals = () => {
                             >
                                 {filter}
                             </Button>
-                        
-                            </>
                         ))}
-                        <span
-                            className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
-                            style={indicatorStyle}
-                        />
                     </div>
-                    <Image src={skip} alt='' height={25} className='fixed z-10   right-6 '/>
-                    
+                    {showFastForwardIcon && (
+                        <Image src={skip} alt='' height={25} className='fixed z-10 right-6' />
+                    )}
+                    <span
+                        className="absolute bottom-0 rounded-sm h-[3px] bg-lightGray transition-all duration-300"
+                        style={indicatorStyle}
+                    />
                 </div>
+
             </div>
             
         </section>

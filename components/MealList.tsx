@@ -50,7 +50,18 @@ const MealItem: React.FC<MealItemProps>=({meal,mealClick})=>{
         <li className='bg-white  w-full' >
 
             <div  className=" w-[93%] mx-auto flex gap-4 cursor-default justify-between items-center mb-1 py-1">
-                <Image src={foodImage} width={110} className='h-full ' alt=''/>
+                <Image 
+                    src={foodImage} 
+                    width={110} 
+                    className='h-full ' 
+                    alt=''
+                    onClick={()=>mealClick(meal)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') mealClick(meal);
+                    }}
+                />
                 <div className=" basis-[70%] ">
                     <div className="flex justify-between h-full gap-4 py-0.5 ">
                         <div className="flex flex-col justify-around gap-1.5 ">

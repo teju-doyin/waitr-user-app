@@ -12,7 +12,7 @@ export default function WelcomePage() {
       router.push('/homepage');
     }, 2000);
 
-    return () => clearTimeout(timer); // Cleanup the timer if the component unmounts
+    return () => clearTimeout(timer); 
   }, [router]);
   const variants =({
     hidden:{opacity:0},

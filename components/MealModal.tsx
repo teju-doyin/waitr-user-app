@@ -107,20 +107,23 @@ const MealModal: React.FC<MealModalProps> = ({ meal, isOpen, onClose }) => {
                 </button>
               </div>
             </div>
-            <div className="text-white mb-4">
-              <h4 className='text-[.9rem] font-semibold mb-2'>Description</h4>
-              <p className='text-[.8rem] font-light opacity-85'>{meal.description}</p>
-            </div>
-            <div className="text-white">
-              <h4 className='text-[.9rem] font-semibold'>Time</h4>
-              <p className='text-[.8rem] font-light opacity-85'>{meal.prep_time}</p>
-            </div>
+            {!isReviewVisible&&
+            <>
+              <div className="text-white mb-4">
+                <h4 className='text-[.9rem] font-semibold mb-2'>Description</h4>
+                <p className='text-[.8rem] font-light opacity-85'>{meal.description}</p>
+              </div>
+              <div className="text-white">
+                <h4 className='text-[.9rem] font-semibold'>Time</h4>
+                <p className='text-[.8rem] font-light opacity-85'>{meal.prep_time}</p>
+              </div>
+            </>}
             <div className="mt-4">
           
               {isReviewVisible && (
                 <div className='text-white'>
                 <h4 className='text-[.9rem] font-semibold mb-2'>Reviews</h4>
-                <ul className=' overflow-y-auto smooth-scroll max-h-[10rem]'>
+                <ul className=' overflow-y-auto smooth-scroll max-h-[15rem]'>
                   {meal.reviews.map((review: Review, index: number) => (
                     <>
                     <li 
