@@ -64,5 +64,18 @@
       "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
       "date": "23rd August 2023",
       "memo": "Please reduce the pepper in my food. I don’t want Onions too"
+    },
+    {
+      "id": 6,
+      "title": "Lasagna",
+      "price": 70,
+      "quantity": 4,
+      "status": "ready",
+      "time_left": 0,
+      "splits":1,
+      "category":"Completed",
+      "description":"Slice yam, perrinwickle, pepper, ketchup, fried chicken with mince ...",
+      "date": "23rd August 2023",
+      "memo": "Please reduce the pepper in my food. I don’t want Onions too"
     }
 ]

@@ -60,7 +60,7 @@ const Meals = () => {
         <div className='relative'>
        
         <section className='relative w-[90%] mx-auto z-20 mt-4 '>
-            <div className="fixed top-32 bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
+            <div className="fixed top-[100px] bg-[#FAFAFA] left-0 w-full  z-10 px-4  pt-2">
                 <div className="">
                     <h1 className='text-grayText text-[1.3rem] font-semibold mb-2'>Today&apos;s Menu</h1>
                     <div className="relative mb-4">
@@ -106,7 +106,7 @@ const Meals = () => {
             </div>
             
         </section>
-        <div className="flex- mt-[290px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
+        <div className="flex- mt-[260px] max-h-[calc(100vh-150px)] w-full smooth-scroll overflow-y-auto">
             <MealList meals={filteredMeals} mealClick={handleMealClick} />
         </div>
         {selectedMeal&&<MealModal onClose={handleCloseModal} meal={selectedMeal} isOpen={isModalOpen}/>}

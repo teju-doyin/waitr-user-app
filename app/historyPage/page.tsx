@@ -9,6 +9,8 @@ import tick from '@/public/tick-icon.svg'
 import food from '@/public/chipsImage.svg'
 import Link from 'next/link'
 import FooterHomepage from '@/components/FooterHomepage'
+import Rating from './rating'
+
 const Page = () => {
   const { history } = useHistory()
   const filters = ['Recent','Completed','Cancelled']
@@ -16,6 +18,7 @@ const Page = () => {
   const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
   const [activeFilter, setActiveFilter] = useState<string>('Recent')
   const handleFilterClick = (filter: string) => setActiveFilter(filter)
+
   const filteredHistory = history.filter(item => {
     // if (activeFilter === 'Recent') return true;
     return item.category.toLowerCase() === activeFilter.toLowerCase();
@@ -29,7 +32,7 @@ const Page = () => {
         })
     }
   }, [activeFilter])
-
+  
 
   return (
     // <HistoryProvider>
@@ -81,7 +84,7 @@ const Page = () => {
                     <span  className='font-semibold max-w-44'>
                       <p className='text-[15px]'>{item.title}</p>
                       {item.category !== 'Recent'?(
-                        <p className='text-[12px] font-light x'>{item.description}</p>
+                        <p className='text-[12px] font-light '>{item.description}</p>
                       ):(
 
                         <p className='text-[12px]'>Quantity: <span className=' font-medium text-lightGray'>{item.quantity} pcs</span></p>
@@ -90,7 +93,7 @@ const Page = () => {
                   </div>
                   <span className=''>
                     <p className='text-[14px] text-right mb-1 font-semibold'>${item.price}</p>
-                    <p className='bg-brownishGray text-white text-[12px] rounded px-1.5 py-0.5'>{item.splits==1? 'Only you':`${item.splits} splits`}</p>
+                    <p className='bg-brownishGray text-white text-[12px] italic rounded px-1.5 py-0.5'>{item.splits==1? 'Only you':`${item.splits} splits`}</p>
                   
                   </span>
                 </div>
@@ -118,8 +121,8 @@ const Page = () => {
                     </div>
                   </div>):(
                   <div className={`flex justify-beween items-end w-[83%] ml-auto  ${item.category === 'Completed'?'justify-between':'justify-end'}`}>
-                    {item.category === 'Completed' &&<p className='text-orange font-semibold text-[12px]'>Rate this meal</p>}
-                    <p className='bg-orange text-white text-[13px] rounded px-2.5 py-1'>Re-order</p>
+                    {item.category === 'Completed' &&<Rating mealItem={item}/>}
+                    <p className='bg-orange text-white text-[13px] italic rounded px-2.5 py-1'>Re-order</p>
                   </div>
                 )}
               </div>

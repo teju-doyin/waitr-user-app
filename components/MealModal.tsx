@@ -87,17 +87,6 @@ const MealModal: React.FC<MealModalProps> = ({ meal, isOpen, onClose }) => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    increaseQuantity(meal.id);
-                  }}
-                  className='cursor-pointer text-[20px] bg-orange text-center text-white px-[11px] pt-[1px] pb-[5px] rounded-full'
-                  aria-label={`Increase quantity of ${meal.title}`}
-                >
-                  +
-                </button>
-                <p className='text-white text-[.9rem] font-bold'>{orderQuantity[meal.id] || 0}</p>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
                     decreaseQuantity(meal.id);
                   }}
                   className='cursor-pointer text-[20px] text-orange border border-orange px-3 py-[2px] rounded-full'
@@ -105,10 +94,21 @@ const MealModal: React.FC<MealModalProps> = ({ meal, isOpen, onClose }) => {
                 >
                   -
                 </button>
+                <p className='text-white text-[.9rem] font-bold'>{orderQuantity[meal.id] || 0}</p>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    increaseQuantity(meal.id);
+                  }}
+                  className='cursor-pointer text-[20px] bg-orange text-center text-white px-[11px] pt-[1px] pb-[5px] rounded-full'
+                  aria-label={`Increase quantity of ${meal.title}`}
+                >
+                  +
+                </button>
               </div>
             </div>
-            {!isReviewVisible&&
-            <>
+           
+            <div className=" overflow-y-auto smooth-scroll max-h-[15rem]">
               <div className="text-white mb-4">
                 <h4 className='text-[.9rem] font-semibold mb-2'>Description</h4>
                 <p className='text-[.8rem] font-light opacity-85'>{meal.description}</p>
@@ -117,33 +117,32 @@ const MealModal: React.FC<MealModalProps> = ({ meal, isOpen, onClose }) => {
                 <h4 className='text-[.9rem] font-semibold'>Time</h4>
                 <p className='text-[.8rem] font-light opacity-85'>{meal.prep_time}</p>
               </div>
-            </>}
-            <div className="mt-4">
-          
-              {isReviewVisible && (
-                <div className='text-white'>
-                <h4 className='text-[.9rem] font-semibold mb-2'>Reviews</h4>
-                <ul className=' overflow-y-auto smooth-scroll max-h-[15rem]'>
-                  {meal.reviews.map((review: Review, index: number) => (
-                    <>
-                    <li 
-                      key={index}
-                      className='text-[.8rem] font-light opacity-85  w-[90%]'
-                    >
-                      <div className=" flex justify-between">
-                        <span className='text-[.9rem]'>{review.name}</span>
-                        <div className='flex'>{renderStars(review.stars)}</div>
-                      </div>
-                      <p className='max-w-[20rem]'>{review.notes}</p>
-                     
-                      <p>{review.date}</p>
-                    </li>
-                    <div className='w-4 h-[1px] bg-white rounded-md my-3'></div>
-                    </>
-                  ))}
-                </ul>
-                </div>
-              )}
+              <div className="mt-4">
+                {isReviewVisible && (
+                  <div className='text-white'>
+                  <h4 className='text-[.9rem] font-semibold mb-2'>Reviews</h4>
+                  <ul className=''>
+                    {meal.reviews.map((review: Review, index: number) => (
+                      <>
+                      <li
+                        key={index}
+                        className='text-[.8rem] font-light opacity-85  w-[90%]'
+                      >
+                        <div className=" flex justify-between">
+                          <span className='text-[.9rem]'>{review.name}</span>
+                          <div className='flex'>{renderStars(review.stars)}</div>
+                        </div>
+                        <p className='max-w-[20rem]'>{review.notes}</p>
+              
+                        <p>{review.date}</p>
+                      </li>
+                      <div className='w-4 h-[1px] bg-white rounded-md my-3'></div>
+                      </>
+                    ))}
+                  </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
