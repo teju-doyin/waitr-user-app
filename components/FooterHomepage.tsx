@@ -1,10 +1,15 @@
+'use client'
 import React from 'react'
 import Image from "next/image"
 import cartIcon from '@/public/cart.svg'
 import { Button } from "@/components/ui/button"
 import { useMeals } from '@/context/MealsContext'
-const FooterHomepage = () => {
-  const { cartItemCount,getTotalPrice } = useMeals()
+import Link from 'next/link'
+interface FooterHomepageProps {
+  buttonText: string;
+}
+const FooterHomepage:React.FC<FooterHomepageProps> = ({buttonText}) => {
+  const { cartItemCount,getTotalPrice } = useMeals();
   return (
     <section className='fixed bottom-0 pt-3 pb-1.5 text-white bg-[#000000C4] w-full '>
       <div className="w-[93%] mx-auto flex justify-between items-center opacity-[54]">
@@ -15,7 +20,10 @@ const FooterHomepage = () => {
             </div>
             <span className='text-[20px]'>${getTotalPrice().toLocaleString()}</span>
         </div>
-        <Button variant="secondary" className='bg-orange py-4 font-normal text-[17px] basis-[35%]  text-white'>Checkout</Button>
+
+        <Link href='../../cart'>
+          <Button variant="secondary" className='bg-orange px-7 font-normal text-[17px] basis-[35%]  text-white'>{buttonText}</Button>
+        </Link>
       </div>
     </section>
   )

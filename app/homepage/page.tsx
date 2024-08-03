@@ -10,7 +10,7 @@ const HomePage = () => {
     <div className='relative flex flex-col h-screen  w-full overflow-hidden bg-[#FAFAFA]'>
       <HeroHomepage/>
       <Meals/>
-      <FooterHomepage/>
+      <FooterHomepage buttonText='Checkout'/>
     </div>
   )
 }

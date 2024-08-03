@@ -129,7 +129,7 @@ const Page = () => {
             </li>
           ))}
         </ul>
-        <FooterHomepage/>
+        <FooterHomepage buttonText='Checkout'/>
       </div>
     // </HistoryProvider>
   )
