@@ -13,7 +13,7 @@ import { useMeals } from '@/context/MealsContext'
 import { truncateDescription } from '@/lib/utils'
 
 const CartCheckOut = () => {
-    const {meals, orderQuantity, increaseQuantity, decreaseQuantity} = useMeals()
+    const {meals,removeMeal, orderQuantity, increaseQuantity, decreaseQuantity, cartItemCount,getTotalPrice } = useMeals()
     const cartItems = meals.filter(meal => orderQuantity[meal.id] > 0)
     const [memo, setMemo] = useState<{ [key: number]: string }>({})
     const [showMemo, setShowMemo] = useState<{ [key: number]: boolean }>({})
@@ -31,7 +31,6 @@ const CartCheckOut = () => {
           [id]: !prevShowMemo[id]
         }))
     }
-
 
   return (
     <div className="">
@@ -54,7 +53,7 @@ const CartCheckOut = () => {
                     {cartItems.map((item)=>(
                         <>
                         <li key={item.id} className='flex gap-2 items-start'>
-                            <Image src={close} alt=''/>
+                            <Image src={close} alt='' className='cursor-pointer' onClick={()=>removeMeal(item.id)}/>
                             <div className="w-full">
                                 <div className=" flex gap-4 items-start">
                                     <Image src={foodImage} alt='' />
@@ -112,7 +111,15 @@ const CartCheckOut = () => {
                 <p>Your cart is empty </p>
             )}
         </section>
-        <FooterHomepage buttonText='Go To Payment'/>
+            <FooterHomepage buttonText='Go To Payment' link='../../payment'>
+            <div className=" flex items-center gap-9">
+            <div className="relative ">
+                <Image src={cartIcon} alt='' width={27} />
+                <span className='absolute -top-2 -right-3 bg-red rounded-full px-1.5 text-[.9rem]'>{cartItemCount}</span>
+            </div>
+            <span className='text-[20px]'>${getTotalPrice().toLocaleString()}</span>
+            </div>
+        </FooterHomepage>
     </div>
   )
 }

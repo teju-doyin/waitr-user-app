@@ -27,6 +27,7 @@ interface MealsContextProps {
   decreaseQuantity: (id: number) => void;
   cartItemCount: number;
   getTotalPrice: () => number;
+  removeMeal: (id:number) => void;
 }
 const MealsContext = createContext<MealsContextProps | undefined>(undefined)
 export const MealsProvider: React.FC <{children: ReactNode}> = ({children}) => {
@@ -52,6 +53,14 @@ export const MealsProvider: React.FC <{children: ReactNode}> = ({children}) => {
       return total + (orderQuantity[meal.id] || 0) * meal.price;
     }, 0);
   };
+
+  const removeMeal = (id: number) => {
+    setOrderQuantity(prevQuantity=>{
+      const updatedQuantity = {...prevQuantity}
+      delete updatedQuantity[id]
+      return updatedQuantity;
+    }) 
+  };
   
   const decreaseQuantity = (id: number) => {
     setOrderQuantity(prevQuantity => ({
@@ -67,7 +76,8 @@ export const MealsProvider: React.FC <{children: ReactNode}> = ({children}) => {
         cartItemCount,
         getTotalPrice,
         increaseQuantity,
-        decreaseQuantity
+        decreaseQuantity,
+        removeMeal,
       }}>
       {children}
     </MealsContext.Provider>

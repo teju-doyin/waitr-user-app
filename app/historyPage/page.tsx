@@ -10,9 +10,12 @@ import food from '@/public/chipsImage.svg'
 import Link from 'next/link'
 import FooterHomepage from '@/components/FooterHomepage'
 import Rating from './rating'
+import cartIcon from '@/public/cart.svg'
+import { useMeals } from '@/context/MealsContext'
 
 const Page = () => {
   const { history } = useHistory()
+  const { cartItemCount,getTotalPrice } = useMeals();
   const filters = ['Recent','Completed','Cancelled']
   const filterRefs = useRef<{ [key: string]: HTMLLIElement | null }>({})
   const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
@@ -129,7 +132,15 @@ const Page = () => {
             </li>
           ))}
         </ul>
-        <FooterHomepage buttonText='Checkout'/>
+        <FooterHomepage buttonText='Checkout' link='../../cart'>
+          <div className=" flex items-center gap-9">
+            <div className="relative ">
+                <Image src={cartIcon} alt='' width={27} />
+                <span className='absolute -top-2 -right-3 bg-red rounded-full px-1.5 text-[.9rem]'>{cartItemCount}</span>
+            </div>
+            <span className='text-[20px]'>${getTotalPrice().toLocaleString()}</span>
+          </div>
+        </FooterHomepage>
       </div>
     // </HistoryProvider>
   )
