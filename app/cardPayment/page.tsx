@@ -1,5 +1,4 @@
-// pages/cardPayment.tsx
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import HeaderSection from '../../components/HeaderSection';
 import backArrow from '@/public/white-back-arrow.svg';
@@ -21,23 +20,19 @@ const CardPayment = () => {
   const { getTotalPrice, payerInfo } = useMeals();
   const [paymentConfirmed, setPaymentConfirmed] = useState<boolean>(true);
   const [paymentSuccessful, setPaymentSuccessful] = useState<boolean>(false);
+
   useEffect(() => {
     const handlePayment = async () => {
       setTimeout(() => {
-        setPaymentConfirmed(true); // Replace with actual payment result
+        setPaymentConfirmed(true); // Simulate payment confirmation (replace with actual payment result)
         if (paymentConfirmed) {
           setPaymentSuccessful(true);
         }
-      }, 2000);
+      }, 10000);
     };
 
     handlePayment();
   }, [paymentConfirmed]);
-
-  // Rest of the component
-
-
-  console.log('payerInfo:', payerInfo); // Debugging line
 
   return (
     <div>
@@ -54,14 +49,18 @@ const CardPayment = () => {
           </div>
         </div>
       </HeaderSection>
+
       <section className='mt-28 w-[90%] mx-auto'>
         <div>
           <span className='flex gap-4 items-center mb-2'>
             <h4 className='text-grayText font-semibold text-[16px]'>Split Payment</h4>
             <h6 className='italic text-green text-[10px] font-semibold'>Active**</h6>
           </span>
-          <p className='text-[12px] text-lightGray italic'>You have Split Payment active for this order. Each Payer has to complete the order by making payment with the payment option selected.</p>
+          <p className='text-[12px] text-lightGray italic'>
+            You have Split Payment active for this order. Each Payer has to complete the order by making payment with the payment option selected.
+          </p>
 
+          {/* Mapping through payerInfo to display payer and their amount */}
           {Object.keys(payerInfo).length > 0 ? (
             Object.keys(payerInfo).map((key) => (
               <div key={key} className='mt-14'>
@@ -77,15 +76,20 @@ const CardPayment = () => {
                   <span className='rounded bg-[#E2E8EC] py-1 px-5 text-center font-semibold text-[#5D5D5D]'>GT Bank</span>
                 </div>
                 <div className="flex justify-between items-center mt-5 gap-3">
-                  <p className='text-[12px] text-lightGray italic'>Only transfer ${payerInfo[parseInt(key)]} to this account and click confirm once you are done.</p>
-                  <button className='bg-[#C9B294] text-white text-[12px] py-2 px-8 rounded-lg'>{paymentConfirmed ? 'Confirmed' : 'Waiting...'}</button>
+                  <p className='text-[12px] text-lightGray italic'>
+                    Only transfer ${payerInfo[parseInt(key)]} to this account and click confirm once you are done.
+                  </p>
+                  <button className='bg-[#C9B294] text-white text-[12px] py-2 px-8 rounded-lg'>
+                    {paymentConfirmed ? 'Confirmed' : 'Waiting...'}
+                  </button>
                 </div>
               </div>
             ))
           ) : (
-            <p className=' text-red-'>No payer information available</p>
+            <p className='text-red-500'>No payer information available</p>
           )}
 
+          {/* Payment Successful Alert */}
           <AlertDialog open={paymentSuccessful} onOpenChange={setPaymentSuccessful}>
             <AlertDialogContent className='w-[90%] mx-auto rounded-md'>
               <div className="w-[70%] mx-auto flex flex-col justify-center items-center text-center gap-4">
@@ -102,8 +106,10 @@ const CardPayment = () => {
           </AlertDialog>
         </div>
       </section>
+
+      {/* Footer displaying the total amount */}
       <FooterHomepage buttonText='Complete Order' link=''>
-        <div className="">
+        <div>
           <p className='text-[12px] text-[#FFFFFF78]'>Total Amount</p>
           <p className='text-[20px]'>${getTotalPrice().toLocaleString()}</p>
         </div>

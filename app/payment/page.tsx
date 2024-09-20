@@ -22,6 +22,7 @@ const PaymentPage = () => {
     const [amountSplit, setAmountSplit] = useState<number[]>([]);
     const [payerSplit, setPayerSplit] = useState<number>(1);
     const [userAmounts, setUserAmounts] = useState<{ [key: number]: number }>({});
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
         if (payerSplit > 0) {
@@ -34,6 +35,23 @@ const PaymentPage = () => {
         console.log('Updated payer info:', userAmounts);
     }, [userAmounts, setPayerInfo]);
 
+      const handleProceedClick = () => {
+        const totalDisplayed = Object.values(userAmounts).reduce((sum, value) => sum + value, 0);
+    
+        if (totalDisplayed !== total) {
+            const difference = total - totalDisplayed;
+            const adjustmentMessage = difference > 0 
+                ? `You need to add $${difference.toLocaleString()}.` 
+                : `You need to deduct $${Math.abs(difference).toLocaleString()}.`;
+    
+            setErrorMessage(`The total amount is incorrect. ${adjustmentMessage}`);
+            return false; // Validation failed
+        }
+    
+        setErrorMessage(''); // Clear error
+        return true; // Validation passed
+    };
+      
     const randomSplit = () => {
         let remainingAmount = total;
         const amounts = new Array(payerSplit).fill(0);
@@ -58,16 +76,19 @@ const PaymentPage = () => {
     };
 
     const handleAmountChange = (index: number, value: string) => {
-        const newAmount = parseInt(value);
+        const newAmount = value !== '' ? parseFloat(value) : 0;
+    
         if (!isNaN(newAmount)) {
-            const totalWithoutCurrent = amountSplit.reduce((acc, curr, i) => (i === index ? acc : acc + curr), 0);
-            if (totalWithoutCurrent + newAmount <= total) {
-                setUserAmounts(prevAmounts => ({
-                    ...prevAmounts,
-                    [index]: newAmount
-                }));
+            const updatedAmounts = { ...userAmounts, [index]: newAmount };
+    
+            // Only update if the new total does not exceed the total from the context
+            const totalDisplayed = Object.values(updatedAmounts).reduce((acc, curr) => acc + curr, 0);
+            
+            if (totalDisplayed <= total) {
+                setUserAmounts(updatedAmounts);
             }
-        } else {
+        } else if (value === '') {
+            // If the input is cleared, remove the value from userAmounts
             const updatedAmounts = { ...userAmounts };
             delete updatedAmounts[index];
             setUserAmounts(updatedAmounts);
@@ -75,15 +96,18 @@ const PaymentPage = () => {
     };
 
     const handleAddClick = (index: number) => {
-        const newAmount = amountSplit[index] + 10;
-        const totalWithoutCurrent = amountSplit.reduce((acc, curr, i) => (i === index ? acc : acc + curr), 0);
-        if (totalWithoutCurrent + newAmount <= total) {
-            setUserAmounts(prevAmounts => ({
-                ...prevAmounts,
-                [index]: newAmount
-            }));
-        }
+    const currentAmount = userAmounts[index] !== undefined ? userAmounts[index] : 0;
+    const totalWithoutCurrent = amountSplit.reduce((acc, curr, i) => (i === index ? acc : acc + curr), 0);
+    
+    // Add $10, ensuring it doesn't exceed the total amount
+    if (totalWithoutCurrent + currentAmount + 10 <= total) {
+        setUserAmounts(prevAmounts => ({
+        ...prevAmounts,
+        [index]: currentAmount + 10
+        }));
+    }
     };
+      
 
     const increaseQuantity = () => {
         setPayerSplit(prevAmount => prevAmount + 1);
@@ -137,12 +161,12 @@ const PaymentPage = () => {
                                                 onClick={() => handleAddClick(index)}
                                                 className="cursor-pointer"
                                             />
-                                            <p className='text-[18px] font-semibold text-grayText'>${amount}</p>
+                                            <p className='text-[18px] font-semibold text-grayText'>${userAmounts[index] !== undefined ? userAmounts[index] : amount}</p>
                                         </span>
                                     </div>
                                     <input
                                         type="number"
-                                        value={userAmounts[index] !== undefined ? userAmounts[index] : amount}
+                                        value={userAmounts[index] !== undefined ? userAmounts[index] : ''}
                                         onChange={(e) => handleAmountChange(index, e.target.value)}
                                         placeholder='Amount'
                                         className='w-full border rounded-md mb-6 border-gray-300 h-[35px] px-3 py-2 text-sm'
@@ -166,10 +190,13 @@ const PaymentPage = () => {
                     </div>
                 </div>
             </section>
-            <FooterHomepage buttonText='Proceed' link='../../cardPayment'>
+                    {errorMessage && <p className="text-red-600 text-sm mt-2">{errorMessage}</p>}
+            <FooterHomepage buttonText='Proceed' link='../../cardPayment' onProceedClick={handleProceedClick}>
                 <div className="">
                     <p className='text-[12px] text-[#FFFFFF78]'>Total Amount</p>
                     <p className='text-[20px]'>${total.toLocaleString()}</p>
+
+                    {/* Error Message */}
                 </div>
             </FooterHomepage>
         </div>
