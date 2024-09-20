@@ -21,19 +21,21 @@ const CardPayment = () => {
   const { getTotalPrice, payerInfo } = useMeals();
   const [paymentConfirmed, setPaymentConfirmed] = useState<boolean>(true);
   const [paymentSuccessful, setPaymentSuccessful] = useState<boolean>(false);
-
   useEffect(() => {
-    handlePayment();
-  }, []);
+    const handlePayment = async () => {
+      setTimeout(() => {
+        setPaymentConfirmed(true); // Replace with actual payment result
+        if (paymentConfirmed) {
+          setPaymentSuccessful(true);
+        }
+      }, 2000);
+    };
 
-  const handlePayment = async () => {
-    setTimeout(() => {
-      setPaymentConfirmed(true); // Replace with actual payment result
-      if (paymentConfirmed) {
-        setPaymentSuccessful(true);
-      }
-    }, 2000);
-  };
+    handlePayment();
+  }, [paymentConfirmed]);
+
+  // Rest of the component
+
 
   console.log('payerInfo:', payerInfo); // Debugging line
 
