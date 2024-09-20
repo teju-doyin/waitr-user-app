@@ -20,6 +20,8 @@ export interface Meal{
   totalRatings: number,
   reviews: Review[]
 }
+
+
 interface MealsContextProps {
   meals: Meal[];
   orderQuantity: { [key: number]: number };
@@ -28,14 +30,20 @@ interface MealsContextProps {
   cartItemCount: number;
   getTotalPrice: () => number;
   removeMeal: (id:number) => void;
+  payerInfo: { [key: number]: number };
+  setPayerInfo:(info: { [key: number]: number }) => void;
 }
 const MealsContext = createContext<MealsContextProps | undefined>(undefined)
 export const MealsProvider: React.FC <{children: ReactNode}> = ({children}) => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [orderQuantity, setOrderQuantity] = useState<{[key:number]:number}>({})
-  
+  const [payerInfo, setPayerInfo] = useState<{ [key: number]: number }>({});
+  const testSetPayerInfo = () => {
+    setPayerInfo({ 0: 50, 1: 5 }); // Replace with your actual logic
+  };
   useEffect(() => {
     setMeals(mealsData);
+    testSetPayerInfo()
   }, [])
 
   const increaseQuantity = (id: number) => {
@@ -78,13 +86,15 @@ export const MealsProvider: React.FC <{children: ReactNode}> = ({children}) => {
         increaseQuantity,
         decreaseQuantity,
         removeMeal,
+        payerInfo,       
+        setPayerInfo,
       }}>
       {children}
     </MealsContext.Provider>
   );
 };
   
-export const useMeals = () => {
+export const useMeals = ():MealsContextProps => {
   const context = useContext(MealsContext);
   if (!context) {
     throw new Error('useMeals must be used within a MealsProvider');

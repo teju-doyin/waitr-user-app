@@ -1,37 +1,41 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import HeaderSection from '../../components/HeaderSection'
-import backArrow from '@/public/white-back-arrow.svg'
-import Image from "next/image"
-import icon from '@/public/payment-icon.svg'
-import add from '@/public/payer-add.svg'
-import Link from 'next/link'
-import FooterHomepage from '@/components/FooterHomepage'
-import { useMeals } from '@/context/MealsContext'
+import React, { useEffect, useState } from 'react';
+import HeaderSection from '../../components/HeaderSection';
+import backArrow from '@/public/white-back-arrow.svg';
+import Image from "next/image";
+import icon from '@/public/payment-icon.svg';
+import add from '@/public/payer-add.svg';
+import Link from 'next/link';
+import FooterHomepage from '@/components/FooterHomepage';
+import { useMeals } from '@/context/MealsContext';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 const PaymentPage = () => {
-    const { getTotalPrice } = useMeals();
-    const [amountSplit, setAmountSplit] = useState<number[]>([])
-    const [payerSplit, setPayerSplit] = useState<number>(1)
-    const [userAmounts, setUserAmounts] = useState<{ [key:number]: number }>({})
+    const { getTotalPrice, setPayerInfo } = useMeals();
+    const total = getTotalPrice();
+    const [amountSplit, setAmountSplit] = useState<number[]>([]);
+    const [payerSplit, setPayerSplit] = useState<number>(1);
+    const [userAmounts, setUserAmounts] = useState<{ [key: number]: number }>({});
 
     useEffect(() => {
         if (payerSplit > 0) {
-            randomSplit()
+            randomSplit();
         }
-    }, [payerSplit, userAmounts])
+    }, [payerSplit]);
+
+    useEffect(() => {
+        setPayerInfo(userAmounts);
+        console.log('Updated payer info:', userAmounts);
+    }, [userAmounts, setPayerInfo]);
 
     const randomSplit = () => {
-        const total = getTotalPrice();
         let remainingAmount = total;
-
         const amounts = new Array(payerSplit).fill(0);
 
         Object.keys(userAmounts).forEach((key) => {
@@ -54,12 +58,15 @@ const PaymentPage = () => {
     };
 
     const handleAmountChange = (index: number, value: string) => {
-        const amount = parseInt(value);
-        if (!isNaN(amount)) {
-            setUserAmounts(prevAmounts => ({
-                ...prevAmounts,
-                [index]: amount
-            }));
+        const newAmount = parseInt(value);
+        if (!isNaN(newAmount)) {
+            const totalWithoutCurrent = amountSplit.reduce((acc, curr, i) => (i === index ? acc : acc + curr), 0);
+            if (totalWithoutCurrent + newAmount <= total) {
+                setUserAmounts(prevAmounts => ({
+                    ...prevAmounts,
+                    [index]: newAmount
+                }));
+            }
         } else {
             const updatedAmounts = { ...userAmounts };
             delete updatedAmounts[index];
@@ -67,12 +74,24 @@ const PaymentPage = () => {
         }
     };
 
+    const handleAddClick = (index: number) => {
+        const newAmount = amountSplit[index] + 10;
+        const totalWithoutCurrent = amountSplit.reduce((acc, curr, i) => (i === index ? acc : acc + curr), 0);
+        if (totalWithoutCurrent + newAmount <= total) {
+            setUserAmounts(prevAmounts => ({
+                ...prevAmounts,
+                [index]: newAmount
+            }));
+        }
+    };
+
     const increaseQuantity = () => {
-        setPayerSplit(prevAmount => prevAmount + 1)
-    }
+        setPayerSplit(prevAmount => prevAmount + 1);
+    };
+
     const decreaseQuantity = () => {
-        setPayerSplit(prevAmount => Math.max(prevAmount - 1, 0))
-    }
+        setPayerSplit(prevAmount => Math.max(prevAmount - 1, 1));
+    };
 
     return (
         <div>
@@ -112,15 +131,21 @@ const PaymentPage = () => {
                                     <div className="flex justify-between items-end">
                                         <label className='text-[16px] text-grayText font-medium'>Payer {index + 1} </label>
                                         <span className='flex gap-3 items-center'>
-                                            <Image src={add} alt='' />
+                                            <Image
+                                                src={add}
+                                                alt=''
+                                                onClick={() => handleAddClick(index)}
+                                                className="cursor-pointer"
+                                            />
                                             <p className='text-[18px] font-semibold text-grayText'>${amount}</p>
                                         </span>
                                     </div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         value={userAmounts[index] !== undefined ? userAmounts[index] : amount}
                                         onChange={(e) => handleAmountChange(index, e.target.value)}
-                                        className='w-full border-b-2 border-gray-300 h-[35px] px-3 py-2 text-sm' />
+                                        className='w-full border-b-2 border-gray-300 h-[35px] px-3 py-2 text-sm'
+                                    />
                                 </div>
                             ))}
                             <Select>
@@ -130,7 +155,7 @@ const PaymentPage = () => {
                                     </div>
                                 </SelectTrigger>
                                 <SelectContent className='text-grayText'>
-                                    <SelectItem className='text-red-500' value="dine-in">Dine in</SelectItem>
+                                    <SelectItem value="dine-in">Dine in</SelectItem>
                                     <SelectItem value="pick-up">Pick up</SelectItem>
                                     <SelectItem value="takeout">Takeout</SelectItem>
                                     <SelectItem value="delivery">Delivery</SelectItem>
@@ -140,14 +165,14 @@ const PaymentPage = () => {
                     </div>
                 </div>
             </section>
-            <FooterHomepage buttonText='Proceed' link=''>
+            <FooterHomepage buttonText='Proceed' link='../../cardPayment'>
                 <div className="">
                     <p className='text-[12px] text-[#FFFFFF78]'>Total Amount</p>
-                    <p className='text-[20px]'>${getTotalPrice().toLocaleString()}</p>
+                    <p className='text-[20px]'>${total.toLocaleString()}</p>
                 </div>
             </FooterHomepage>
         </div>
-    )
+    );
 }
 
-export default PaymentPage
+export default PaymentPage;

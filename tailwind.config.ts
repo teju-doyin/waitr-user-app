@@ -30,6 +30,7 @@ const config = {
         'brownishGray':'#51493F',
         'offGray':'#D9D9D9',
         'offWhite':'#EEEDED9C',
+        'green':'#27BD90',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
