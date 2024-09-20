@@ -13,7 +13,7 @@ const HomePage = () => {
     <div className='relative flex flex-col h-screen  w-full overflow-hidden bg-[#FAFAFA]'>
       <HeroHomepage/>
       <Meals/>
-      <FooterHomepage buttonText='Checkout' link='../../payment'>
+      <FooterHomepage buttonText='Checkout' link='../../cart'>
         <div className=" flex items-center gap-9">
           <div className="relative ">
               <Image src={cartIcon} alt='' width={27} />

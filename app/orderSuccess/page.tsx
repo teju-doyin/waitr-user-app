@@ -8,7 +8,7 @@ import Link from 'next/link'
 import HeaderSection from '@/components/HeaderSection'
 import { Button } from '@/components/ui/button'
 import Token from '@/components/Token'
-const page = () => {
+const Page = () => {
   const [showOtp, setShowOtp] = useState<boolean>(false)
   const handleVerification=() => {
     setShowOtp(true)
@@ -52,4 +52,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
