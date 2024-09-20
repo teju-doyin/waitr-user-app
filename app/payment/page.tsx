@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import HeaderSection from '../../components/HeaderSection';
 import backArrow from '@/public/white-back-arrow.svg';
 import Image from "next/image";
@@ -24,35 +24,31 @@ const PaymentPage = () => {
     const [userAmounts, setUserAmounts] = useState<{ [key: number]: number }>({});
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (payerSplit > 0) {
-            randomSplit();
-        }
-    }, [payerSplit]);
+    
 
     useEffect(() => {
         setPayerInfo(userAmounts);
         console.log('Updated payer info:', userAmounts);
     }, [userAmounts, setPayerInfo]);
 
-      const handleProceedClick = () => {
-        const totalDisplayed = Object.values(userAmounts).reduce((sum, value) => sum + value, 0);
-    
-        if (totalDisplayed !== total) {
-            const difference = total - totalDisplayed;
-            const adjustmentMessage = difference > 0 
-                ? `You need to add $${difference.toLocaleString()}.` 
-                : `You need to deduct $${Math.abs(difference).toLocaleString()}.`;
-    
-            setErrorMessage(`The total amount is incorrect. ${adjustmentMessage}`);
-            return false; // Validation failed
-        }
-    
-        setErrorMessage(''); // Clear error
-        return true; // Validation passed
+    const handleProceedClick = () => {
+    const totalDisplayed = Object.values(userAmounts).reduce((sum, value) => sum + value, 0);
+
+    if (totalDisplayed !== total) {
+        const difference = total - totalDisplayed;
+        const adjustmentMessage = difference > 0 
+            ? `You need to add $${difference.toLocaleString()}.` 
+            : `You need to deduct $${Math.abs(difference).toLocaleString()}.`;
+
+        setErrorMessage(`The total amount is incorrect. ${adjustmentMessage}`);
+        return false; // Validation failed
+    }
+
+    setErrorMessage(''); // Clear error
+    return true; // Validation passed
     };
       
-    const randomSplit = () => {
+    const randomSplit = useCallback(() => {
         let remainingAmount = total;
         const amounts = new Array(payerSplit).fill(0);
 
@@ -73,7 +69,12 @@ const PaymentPage = () => {
         }
 
         setAmountSplit(amounts);
-    };
+    }, [payerSplit, total, userAmounts]);
+    useEffect(() => {
+        if (payerSplit > 0) {
+            randomSplit();
+        }
+    }, [payerSplit,randomSplit]);
 
     const handleAmountChange = (index: number, value: string) => {
         const newAmount = value !== '' ? parseFloat(value) : 0;
