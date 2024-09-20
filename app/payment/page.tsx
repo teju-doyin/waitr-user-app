@@ -128,9 +128,9 @@ const PaymentPage = () => {
                         <form action="">
                             {amountSplit.map((amount, index) => (
                                 <div key={index} className="">
-                                    <div className="flex justify-between items-end">
-                                        <label className='text-[16px] text-grayText font-medium'>Payer {index + 1} </label>
-                                        <span className='flex gap-3 items-center'>
+                                    <div className="flex justify-between items-center">
+                                        <label className='text-[16px] mb-2 text-grayText font-medium'>Payer {index + 1} </label>
+                                        <span className='flex gap-3 justify-between  items-center mb-2'>
                                             <Image
                                                 src={add}
                                                 alt=''
@@ -144,7 +144,8 @@ const PaymentPage = () => {
                                         type="number"
                                         value={userAmounts[index] !== undefined ? userAmounts[index] : amount}
                                         onChange={(e) => handleAmountChange(index, e.target.value)}
-                                        className='w-full border-b-2 border-gray-300 h-[35px] px-3 py-2 text-sm'
+                                        placeholder='Amount'
+                                        className='w-full border rounded-md mb-6 border-gray-300 h-[35px] px-3 py-2 text-sm'
                                     />
                                 </div>
                             ))}
